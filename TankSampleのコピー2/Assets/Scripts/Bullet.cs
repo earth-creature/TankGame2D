@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     Rigidbody2D body;
     Tank myTank;
 
-    int bounceNumRemain;
+    int bounceNumRemain;    //あと何回跳ね返るか
     bool isExist;
 
     void Awake()
@@ -52,6 +52,7 @@ public class Bullet : MonoBehaviour
         UpdateAnimation();
     }
 
+    //弾の向きを移動方向に合わせる
     void UpdateAnimation()
     {
         float vx = body.velocity.x;
@@ -60,6 +61,7 @@ public class Bullet : MonoBehaviour
         transform.rotation = Quaternion.Euler ( 0f, 0f, rad * 180f / Mathf.PI);
     }
 
+    //弾の破壊
     void DestroyBullet()
     {
         if ( isExist){
@@ -69,6 +71,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    //発射時の向きから進む速度を単位ベクトルで求める
     Vector2 GetStartVector()
     {
         float angleRad = transform.eulerAngles.z * Mathf.PI / 180f;
