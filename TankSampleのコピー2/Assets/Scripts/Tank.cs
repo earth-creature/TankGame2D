@@ -27,7 +27,7 @@ public class Tank : MonoBehaviour
     void Update()
     {
         UpdateAim();
-        Act();
+        Shoot();
     }
 
     void FixedUpdate()
@@ -35,13 +35,15 @@ public class Tank : MonoBehaviour
         Move();
     }
 
+    //マウスポインタにエイムを合わせる
     void UpdateAim()
     {
         aimAngle = GetAimAngle( Camera.main.WorldToScreenPoint( transform.position), Input.mousePosition);
         transform.rotation = Quaternion.Euler( 0f, 0f, aimAngle);
     }
 
-    void Act()
+    //ある条件下で弾を発射する
+    void Shoot()
     {
         if (Input.GetKeyDown ( KeyCode.Mouse0)){
             if( bulletNumCurrent < bulletNumMax){
@@ -51,11 +53,13 @@ public class Tank : MonoBehaviour
         }
     }
 
+    //移動
     void Move()
     {
         body.velocity = MakeUnitVector2() * tankSpeed;
     }
 
+    //矢印キー入力から単位ベクトルを求める
     Vector2 MakeUnitVector2()
     {
         Vector2 vec = Vector2.zero;
@@ -80,6 +84,7 @@ public class Tank : MonoBehaviour
         return vec;
     }
 
+    //始点座標から終点座標までのラジアンを求める
     float GetAimAngle( Vector2 from, Vector2 to)
     {
         float dx = to.x - from.x;
