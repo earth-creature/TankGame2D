@@ -25,26 +25,11 @@ public class Bullet : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         body.velocity = GetStartVector() * bulletSpeed;
-
     }
 
     void Update()
     {
 
-    }
-
-    void UpdateAnimation()
-    {
-        float vx = body.velocity.x;
-        float vy = body.velocity.y;
-        float rad = Mathf.Atan2(vy, vx);
-        transform.rotation = Quaternion.Euler ( 0f, 0f, rad * 180f / Mathf.PI);
-    }
-
-    void OnCollisionEnter2D( Collision2D col)
-    {
-        
-        
     }
 
     void OnTriggerExit2D( Collider2D col)
@@ -58,32 +43,29 @@ public class Bullet : MonoBehaviour
         }
         if (col.gameObject.tag == "Wall"){
             
-            if ( bounceNumRemain == 0)
-            {
+            if ( bounceNumRemain == 0){
                 DestroyBullet();
             }
             bounceNumRemain -= 1;
-
         }
 
         UpdateAnimation();
-
     }
 
-    void OnCollisionExit2D( Collision2D col)
+    void UpdateAnimation()
     {
-        
+        float vx = body.velocity.x;
+        float vy = body.velocity.y;
+        float rad = Mathf.Atan2(vy, vx);
+        transform.rotation = Quaternion.Euler ( 0f, 0f, rad * 180f / Mathf.PI);
     }
 
     void DestroyBullet()
     {
-        if ( isExist)
-        {
+        if ( isExist){
             isExist = false;
             myTank.bulletNumCurrent -= 1;
             Destroy ( this.gameObject);
-
-            Debug.Log("destroyed");
         }
     }
 
