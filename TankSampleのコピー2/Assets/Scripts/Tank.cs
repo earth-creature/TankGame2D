@@ -35,11 +35,6 @@ public class Tank : MonoBehaviour
         Move();
     }
 
-    void Move()
-    {
-        body.velocity = MakeUnitVector2() * tankSpeed;
-    }
-
     void UpdateAim()
     {
         aimAngle = GetAimAngle( Camera.main.WorldToScreenPoint( transform.position), Input.mousePosition);
@@ -48,14 +43,17 @@ public class Tank : MonoBehaviour
 
     void Act()
     {
-        if (Input.GetKeyDown ( KeyCode.Mouse0))
-        {
-            if( bulletNumCurrent < bulletNumMax)
-            {
+        if (Input.GetKeyDown ( KeyCode.Mouse0)){
+            if( bulletNumCurrent < bulletNumMax){
                 Instantiate( bulletPrefab, tankTurret.transform.position, Quaternion.Euler( 0f, 0f, aimAngle));
                 bulletNumCurrent += 1;
             }
         }
+    }
+
+    void Move()
+    {
+        body.velocity = MakeUnitVector2() * tankSpeed;
     }
 
     Vector2 MakeUnitVector2()
